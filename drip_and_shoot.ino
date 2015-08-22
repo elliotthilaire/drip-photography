@@ -7,8 +7,6 @@ boolean initial_drop_released;
 boolean collision_drop_released;
 boolean photo_taken;
 
-int start_time;
-
 void setup() {
   pinMode(SOLENOID_VALVE_PIN, OUTPUT);
   pinMode(IR_PIN, OUTPUT);
@@ -19,11 +17,6 @@ void setup() {
   photo_taken = false;
   
   Serial.begin(9600);
-  
-  int start_time = millis();
-
-  log("Setup finished at: ", millis());
-
 }
 
 void loop() {
@@ -60,14 +53,6 @@ void loop() {
 
 }
 
-
-// log method to correct concatinate different types
-// i.e., string and int
-void log(String message, int time){
-  String output = message + time;
-  Serial.println(output);
-}
-
 void drip(){
   int OPEN_VALVE_DURATION = 70;
 
@@ -100,5 +85,17 @@ void take_photo(){
     count++;
   }
 }
+
+// log method to correct concatinate different types
+// i.e., string and int
+void log(String message, int time){
+  String output = message + time;
+  Serial.println(output);
+}
+
+// Experimental
+
+// http://www.instructables.com/id/two-ways-to-reset-arduino-in-software/step2/using-just-software/
+void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 
