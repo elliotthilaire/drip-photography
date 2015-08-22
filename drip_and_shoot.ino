@@ -60,9 +60,8 @@ void drip(){
 }
 
 void take_photo(){
-  int count = 0;
 
-  while(count < 3) {
+  for (int count = 0; count < 3; count++) {
     tone(IR_PIN, 38000);
     delay(2);
     noTone(IR_PIN);
@@ -80,7 +79,6 @@ void take_photo(){
     noTone(IR_PIN);
     delayMicroseconds(100);
     delay(63);
-    count++;
   }
 }
 
@@ -92,8 +90,6 @@ void log(String message, int time){
 }
 
 // Experimental
-
 // http://www.instructables.com/id/two-ways-to-reset-arduino-in-software/step2/using-just-software/
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
-
 
