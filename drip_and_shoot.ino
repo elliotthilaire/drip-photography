@@ -20,10 +20,8 @@ void setup() {
 }
 
 void loop() {
-  
-  int time = millis();
-    
-  if (time > 0 and initial_drop_released == false ) {
+      
+  if (millis() > 0 and initial_drop_released == false ) {
     log("Initial Drip started at: ", millis());
     
     drip();
@@ -32,7 +30,7 @@ void loop() {
     log("Initial Drip ended at: ", millis());
   }
   
-  if (time > 80 and collision_drop_released == false) {
+  if (millis() > 80 and collision_drop_released == false) {
     log("Collision Drip started at: ", millis());
 
     drip();
@@ -41,7 +39,7 @@ void loop() {
     log("Collision Drip ended at: ", millis());
   }
 
-  if (time > 300 and photo_taken == false) {
+  if (millis() > 300 and photo_taken == false) {
     log("Start take photo: ", millis());
     
     take_photo();
