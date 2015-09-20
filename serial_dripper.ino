@@ -6,7 +6,9 @@
 
 #define arduinoLED 13   // Arduino LED on board
 
-SerialCommand sCmd;     // The demo SerialCommand object
+SerialCommand sCmd;     // The SerialCommand object
+
+int duration;
 
 void setup() {
   pinMode(arduinoLED, OUTPUT);      // Configure the onboard LED for output
@@ -14,7 +16,13 @@ void setup() {
 
   Serial.begin(9600);
 
+  duration = 300;
+
   // Setup callbacks for SerialCommand commands
+  sCmd.addCommand("shoot",    shoot);        
+  sCmd.addCommand("setDuration", setDuration);
+ 
+  
   sCmd.addCommand("ON",    LED_on);          // Turns LED on
   sCmd.addCommand("OFF",   LED_off);         // Turns LED off
   sCmd.addCommand("HELLO", sayHello);        // Echos the string argument back
@@ -26,6 +34,28 @@ void setup() {
 void loop() {
   sCmd.readSerial();     // We don't do much, just process serial commands
 }
+
+
+void shoot(){
+  Serial.println("Capturing awesome shot!");
+  digitalWrite(arduinoLED, HIGH);
+  delay(duration);
+  digitalWrite(arduinoLED, LOW);  
+}
+
+void setDuration() {
+  char *arg;
+  arg = sCmd.next();    // Get the next argument from the SerialCommand object buffer
+  if (arg != NULL) {    // As long as it existed, take it
+    Serial.print("Setting duration to: ");
+    Serial.println(arg);
+    duration = atoi(arg);
+  }
+  else {
+    Serial.println("What?");
+  }
+}
+
 
 
 void LED_on() {
