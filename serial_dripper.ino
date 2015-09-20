@@ -1,109 +1,110 @@
-// Demo Code for SerialCommand Library
-// Steven Cogswell
-// May 2011
 
 #include <SerialCommand.h>
 
-#define arduinoLED 13   // Arduino LED on board
+#define dripPIN   2
+#define cameraPIN 4
 
-SerialCommand sCmd;     // The SerialCommand object
+SerialCommand sCmd;
 
-int duration;
+int first_drip_duration;  
+int second_drip_delay;    
+int second_drip_duration; 
+int camera_delay;         
 
 void setup() {
-  pinMode(arduinoLED, OUTPUT);      // Configure the onboard LED for output
-  digitalWrite(arduinoLED, LOW);    // default to LED off
+  pinMode(cameraPIN, OUTPUT);
+  digitalWrite(cameraPIN, LOW);
+  pinMode(dripPIN, OUTPUT);
+  digitalWrite(dripPIN, LOW);
+  
+  first_drip_duration = 100;
+  second_drip_delay = 100;
+  second_drip_duration = 100;
+  camera_delay = 400;
 
   Serial.begin(9600);
-
-  duration = 300;
-
-  // Setup callbacks for SerialCommand commands
-  sCmd.addCommand("shoot",    shoot);        
-  sCmd.addCommand("setDuration", setDuration);
- 
   
-  sCmd.addCommand("ON",    LED_on);          // Turns LED on
-  sCmd.addCommand("OFF",   LED_off);         // Turns LED off
-  sCmd.addCommand("HELLO", sayHello);        // Echos the string argument back
-  sCmd.addCommand("P",     processCommand);  // Converts two arguments to integers and echos them back
-  sCmd.setDefaultHandler(unrecognized);      // Handler for command that isn't matched  (says "What?")
+  sCmd.addCommand("shoot",    shoot);
+  sCmd.addCommand("setFirstDripDuration",  setFirstDripDuration);
+  sCmd.addCommand("setSecondDripDelay",    setSecondDripDelay);
+  sCmd.addCommand("setSecondDripDuration", setSecondDripDuration);
+  sCmd.addCommand("setCameraDelay",        setCameraDelay);
+
+  sCmd.setDefaultHandler(unrecognized);
   Serial.println("Ready");
 }
 
 void loop() {
-  sCmd.readSerial();     // We don't do much, just process serial commands
+  sCmd.readSerial();
 }
-
 
 void shoot(){
   Serial.println("Capturing awesome shot!");
-  digitalWrite(arduinoLED, HIGH);
-  delay(duration);
-  digitalWrite(arduinoLED, LOW);  
+  
+  digitalWrite(dripPIN, HIGH);
+  delay(first_drip_duration);
+  digitalWrite(dripPIN, LOW);
+  
+  delay(second_drip_delay);
+  digitalWrite(dripPIN, HIGH);
+  delay(second_drip_duration);
+  digitalWrite(dripPIN, LOW);
+  
+  delay(camera_delay);
+  digitalWrite(cameraPIN, HIGH);
+  delay(50); // 50ms is enough to trigger camera
+  digitalWrite(cameraPIN, LOW);    
 }
 
-void setDuration() {
+void setFirstDripDuration() {
   char *arg;
-  arg = sCmd.next();    // Get the next argument from the SerialCommand object buffer
-  if (arg != NULL) {    // As long as it existed, take it
-    Serial.print("Setting duration to: ");
+  arg = sCmd.next(); 
+  if (arg != NULL) {
+    Serial.print("Setting FirstDripDuration to: ");
     Serial.println(arg);
-    duration = atoi(arg);
+    first_drip_duration = atoi(arg);
   }
   else {
     Serial.println("What?");
   }
 }
 
-
-
-void LED_on() {
-  Serial.println("LED on");
-  digitalWrite(arduinoLED, HIGH);
-}
-
-void LED_off() {
-  Serial.println("LED off");
-  digitalWrite(arduinoLED, LOW);
-}
-
-void sayHello() {
+void setSecondDripDelay() {
   char *arg;
-  arg = sCmd.next();    // Get the next argument from the SerialCommand object buffer
-  if (arg != NULL) {    // As long as it existed, take it
-    Serial.print("Hello ");
+  arg = sCmd.next(); 
+  if (arg != NULL) {
+    Serial.print("Setting SecondDripDelay to: ");
     Serial.println(arg);
+    second_drip_delay = atoi(arg);
   }
   else {
-    Serial.println("Hello, whoever you are");
+    Serial.println("What?");
   }
 }
 
-
-void processCommand() {
-  int aNumber;
+void setSecondDripDuration() {
   char *arg;
-
-  Serial.println("We're in processCommand");
-  arg = sCmd.next();
+  arg = sCmd.next(); 
   if (arg != NULL) {
-    aNumber = atoi(arg);    // Converts a char string to an integer
-    Serial.print("First argument was: ");
-    Serial.println(aNumber);
+    Serial.print("Setting SecondDripDuration to: ");
+    Serial.println(arg);
+    second_drip_duration = atoi(arg);
   }
   else {
-    Serial.println("No arguments");
+    Serial.println("What?");
   }
+}
 
-  arg = sCmd.next();
+void setCameraDelay() {
+  char *arg;
+  arg = sCmd.next(); 
   if (arg != NULL) {
-    aNumber = atol(arg);
-    Serial.print("Second argument was: ");
-    Serial.println(aNumber);
+    Serial.print("Setting CameraDelay to: ");
+    Serial.println(arg);
+    camera_delay = atoi(arg);
   }
   else {
-    Serial.println("No second argument");
+    Serial.println("What?");
   }
 }
 
