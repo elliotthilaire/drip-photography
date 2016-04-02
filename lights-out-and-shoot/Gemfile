@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'lifx'
+gem 'serialport'
+gem 'rubyserial'
+
