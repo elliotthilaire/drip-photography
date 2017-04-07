@@ -1,6 +1,4 @@
 
-
-
 void loop() {
   sCmd.readSerial();
 }
@@ -19,10 +17,10 @@ void setup() {
   second_drip_duration = 100;
   open_shutter_delay = 700;
   flash_delay = 1265;
-  
+
   Serial.begin(9600);
-  
-  sCmd.addCommand("'", shoot);
+
+  sCmd.addCommand("shoot", shoot);
   sCmd.addCommand("setFirstDripDuration",  setFirstDripDuration);
   sCmd.addCommand("setSecondDripDelay",    setSecondDripDelay);
   sCmd.addCommand("setSecondDripDuration", setSecondDripDuration);
@@ -37,4 +35,3 @@ void setup() {
 void unrecognized(const char *command) {
   Serial.println("What?");
 }
-
