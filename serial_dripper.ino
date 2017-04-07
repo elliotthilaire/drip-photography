@@ -18,9 +18,9 @@ void setup() {
   digitalWrite(dripPIN, LOW);
   
   first_drip_duration = 100;
-  second_drip_delay = 100;
+  second_drip_delay = 300;
   second_drip_duration = 100;
-  camera_delay = 400;
+  camera_delay = 500;
 
   Serial.begin(9600);
   
@@ -41,19 +41,43 @@ void loop() {
 void shoot(){
   Serial.println("Capturing awesome shot!");
   
-  digitalWrite(dripPIN, HIGH);
-  delay(first_drip_duration);
-  digitalWrite(dripPIN, LOW);
+  boolean first_drip_released = false;
+  boolean second_drip_released = false;
+  boolean photo_taken = false;
   
-  delay(second_drip_delay);
-  digitalWrite(dripPIN, HIGH);
-  delay(second_drip_duration);
-  digitalWrite(dripPIN, LOW);
+  unsigned long start_time = millis();
   
-  delay(camera_delay);
-  digitalWrite(cameraPIN, HIGH);
-  delay(50); // 50ms is enough to trigger camera
-  digitalWrite(cameraPIN, LOW);    
+  while(photo_taken == false){
+    if (first_drip_released == false) {
+      Serial.print(millis()-start_time); Serial.println(" Start first drip"); 
+      
+      digitalWrite(dripPIN, HIGH);
+      delay(first_drip_duration);
+      digitalWrite(dripPIN, LOW);
+      first_drip_released = true;
+      
+      Serial.print(millis()-start_time); Serial.println(" End first drip"); 
+    }
+    
+    if (millis()-start_time >= second_drip_delay and second_drip_released == false){
+      Serial.print(millis()-start_time); Serial.println(" Start second drip"); 
+      
+      digitalWrite(dripPIN, HIGH);
+      delay(second_drip_duration);
+      digitalWrite(dripPIN, LOW);
+      second_drip_released = true;
+      
+      Serial.print(millis()-start_time); Serial.println(" End second drip"); 
+    }
+    
+    if (millis()-start_time >= camera_delay and photo_taken == false){
+      Serial.print(millis()-start_time); Serial.println(" Taking Photo"); 
+      digitalWrite(cameraPIN, HIGH);
+      delay(50); // 50ms is enough to trigger camera
+      digitalWrite(cameraPIN, LOW);    
+      photo_taken = true;
+    }
+  }
 }
 
 void setFirstDripDuration() {
@@ -112,3 +136,4 @@ void setCameraDelay() {
 void unrecognized(const char *command) {
   Serial.println("What?");
 }
+
