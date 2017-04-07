@@ -2,7 +2,7 @@
 
 This is a collection of scripts and sketches used for taking photos at [twomushrooms.com](http://twomushrooms.com)
 
-![the-blurgle-monster](http://twomushrooms.com/media/W1siZmYiLCIuL3RtcC9nYWxsZXJ5L3RoZS1ibHVyZ2xlLW1vbnN0ZXIuanBnIl0sWyJwIiwidGh1bWIiLCIxMjAweDkwMCJdLFsicCIsIndhdGVybWFyayJdXQ/9f5eff9073c34f58/the-blurgle-monster.jpg) http://twomushrooms.com/media/W1siZmYiLCIuL3RtcC9nYWxsZXJ5L3RoZS1ibHVyZ2xlLW1vbnN0ZXIuanBnIl0sWyJwIiwidGh1bWIiLCIxMjAweDkwMCJdLFsicCIsIndhdGVybWFyayJdXQ/9f5eff9073c34f58/the-blurgle-monster.jpg
+[![the-blurgle-monster](http://twomushrooms.com/media/W1siZmYiLCIuL3RtcC9nYWxsZXJ5L3RoZS1ibHVyZ2xlLW1vbnN0ZXIuanBnIl0sWyJwIiwidGh1bWIiLCIxMjAweDkwMCJdLFsicCIsIndhdGVybWFyayJdXQ/9f5eff9073c34f58/the-blurgle-monster.jpg)](http://twomushrooms.com/the-blurgle-monster)
 
 e.g. [three dimensional splash](http://twomushrooms.com/three-dimensional-splash),
 [space worm](http://twomushrooms.com/space-worm) and [a drop of sepia](http://twomushrooms.com/space-worm).
