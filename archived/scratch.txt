@@ -1,0 +1,18 @@
+// tone that works with just milliseconds   
+    tone(IR_PIN, 38000);
+    delay(2);
+    noTone(IR_PIN);
+    delay(28);
+    tone(IR_PIN, 38000);
+    delay(1);
+    noTone(IR_PIN);
+    delay(1);
+    tone(IR_PIN, 38000);
+    delay(1);
+    noTone(IR_PIN);
+    delay(3);
+    tone(IR_PIN, 38000);
+    delay(1);
+    noTone(IR_PIN);
+    delay(63);
+
