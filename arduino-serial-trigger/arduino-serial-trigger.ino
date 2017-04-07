@@ -36,7 +36,7 @@ void shoot(){
     }
 
     // release first drip
-    if (first_drip_released == false) {
+    if (millis()-start_time >= first_drip_delay and first_drip_released == false) {
       Serial.print(millis()-start_time); Serial.println(" Start first drip"); 
       
       digitalWrite(dripPIN, HIGH);
