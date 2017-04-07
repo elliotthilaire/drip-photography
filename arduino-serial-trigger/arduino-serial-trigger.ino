@@ -63,7 +63,7 @@ void shoot(){
     if (millis()-start_time >= flash_delay and flash_fired == false){
       Serial.print(millis()-start_time); Serial.println(" Firing flash"); 
       digitalWrite(flashPIN, HIGH);
-      delay(1); // 1ms is enough to trigger flash
+      delay(10); // 10ms is enough to trigger flash
       digitalWrite(flashPIN, LOW);     
       flash_fired = true;
     }

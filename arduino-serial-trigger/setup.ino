@@ -15,14 +15,14 @@ void setup() {
 
   first_drip_delay = 0;
   first_drip_duration = 100;
-  second_drip_delay = 300;
+  second_drip_delay = 355;
   second_drip_duration = 100;
-  open_shutter_delay = 200;
-  flash_delay = 500;
+  open_shutter_delay = 700;
+  flash_delay = 1265;
   
   Serial.begin(9600);
   
-  sCmd.addCommand("shoot", shoot);
+  sCmd.addCommand("'", shoot);
   sCmd.addCommand("setFirstDripDuration",  setFirstDripDuration);
   sCmd.addCommand("setSecondDripDelay",    setSecondDripDelay);
   sCmd.addCommand("setSecondDripDuration", setSecondDripDuration);
